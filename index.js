@@ -81,7 +81,6 @@ res.redirect("/");
 
 app.post("/delete", async (req, res) => {
   let itemId = req.body.deleteItemId;
-  console.log(itemId);
   deleteItem(itemId);
   res.redirect("/");
 });
