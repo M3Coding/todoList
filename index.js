@@ -37,7 +37,7 @@ const deleteItem = itemId => {
 
 const insertItem = title => {
   title = item
-  await db.query("INSERT INTO items (title) VALUES($1)", [title]);
+  await db.query("INSERT INTO items (title) VALUES($1) RETURNING *", [title]);
 }
 app.get("/", async (req, res) => {\
   //1. add db query here to get the items from the db
@@ -52,9 +52,8 @@ app.post("/add", async (req, res) => {
   // 2.needs to insert the item that was inputed into the table with db.query
   //3. push the item into the array 
   const item = req.body.newItem;
-
-
-  items.push(insertItem());
+  const addedItem = insertItem(item);
+  items.push(addedItem);
   res.redirect("/");
 });
 
