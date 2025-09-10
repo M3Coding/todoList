@@ -56,8 +56,13 @@ const insertItem = async title => {
 app.get("/", async (req, res) => {
   items = await db.query("SELECT * FROM items");
   items = items.rows;
+  let date = new Date();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  const day = date.getDate();
+  date = `${month}/${day}/${year}`;
   res.render("index.ejs", {
-    listTitle: "Today",
+    listTitle: `Today: ${date}`,
     listItems: items,
   });
 });
